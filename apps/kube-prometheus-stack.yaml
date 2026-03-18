@@ -13,6 +13,20 @@ spec:
     targetRevision: 82.4.1
     helm:
       releaseName: monitoring
+      values: |
+        grafana:
+          admin:
+            existingSecret: grafana-admin-secret
+            userKey: admin-user
+            passwordKey: admin-password
+          ingress:
+            enabled: true
+            ingressClassName: traefik
+            hosts:
+              - grafana.changken.net
+          grafana.ini:
+            server:
+              domain: grafana.changken.net
   destination:
     server: https://kubernetes.default.svc
     namespace: monitoring

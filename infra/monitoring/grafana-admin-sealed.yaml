@@ -1,0 +1,13 @@
+---
+apiVersion: bitnami.com/v1alpha1
+kind: SealedSecret
+metadata:
+  name: grafana-admin-secret
+  namespace: monitoring
+spec:
+  encryptedData:
+    admin-password: AgC7SfM6EglXmAfAzb63Ipjc316FJYqIJlrm/Lha7okWLuyjnZ+yMvUjr308olO0CT2ehBYfZfBOioagp3PmLojzYoxdXMNwOk0Dus1RFW8Ke4lLp8h5g9EFSsIIsQOiQpw+D8RxC+rAqomzmSK6v3t6tkR0Ucov+hqKezfoAAGZhX0Kh2kYDPyLI/8obBofbR7pb/pMh4FjzbayTJ11I6Z2nL8bUy9EJjpjUFFMMuzSzk1arAmgW5YuAR+UTb5qDxSicbQcoCeLELIRrlywWvQK32VyI/UhHceUJ/HNDpGmHMb5Y9ItgN7YhwsWdAfiFdGtW6p7+lZlAlRvaeu4f+jD30ADHyJO/2qF4p/azdrRkhbuZ31pppybGUmQbYKL754SYrNWexku5LzTqsChj+o8tHK+i7JL7Gzit40yA/NwaG5mmQu3KUszRbv5abuYiyF5bDcBXKQTCUjXifTKiAtlwKIzNfDGLzctd1d5GdTVxDRExkIhU4DjxLFE9SFAJj+kSxHG2pBQoQIaqL420KfBUPQiJybq1HwPebyV/XWCZNn7aWNJfi1SiWovyXFwXPzt219BIBaJ9SgHxIyWacf2NcRDnRHh6cGKMDb8/heXjUOi13BI2wVsVzBesjocqEIdIlgmfGOArzsvlZcsuKfWKVvZ4XW4NYvvrVQ8GGNNNJheEa1Z1dhmyoLs4ADeZbg6EPaxxXMgvg==
+  template:
+    metadata:
+      name: grafana-admin-secret
+      namespace: monitoring
