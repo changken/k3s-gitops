@@ -24,6 +24,12 @@ spec:
             ingressClassName: traefik
             hosts:
               - grafana.changken.net
+            annotations:
+              cert-manager.io/cluster-issuer: letsencrypt-prod
+            tls:
+              - secretName: grafana-tls
+                hosts:
+                  - grafana.changken.net
           grafana.ini:
             server:
               domain: grafana.changken.net
