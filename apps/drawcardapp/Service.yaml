@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: drawcardapp
+  namespace: drawcardapp
+spec:
+  selector:
+    app: drawcardapp
+  ports:
+    - port: 80
+      targetPort: 8080
