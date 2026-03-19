@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: drawcardapp
-          image: ghcr.io/changken/drawcardapp:latest  # CI 會更新這行
+          image: ghcr.io/changken/drawcardapp:fd5543db5a65e3e3d47f30bc8697723aba3e71c5 # CI 會更新這行
           ports:
             - containerPort: 8080
           env:
