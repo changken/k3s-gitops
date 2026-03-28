@@ -11,6 +11,7 @@ spec:
     path: infra
     directory:
       recurse: true
+        exclude: '{traefik/**}'
   destination:
     server: https://kubernetes.default.svc
   syncPolicy:
