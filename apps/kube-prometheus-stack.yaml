@@ -19,6 +19,10 @@ spec:
             existingSecret: grafana-admin-secret
             userKey: admin-user
             passwordKey: admin-password
+          service:
+            annotations:
+              tailscale.com/expose: "true"
+              tailscale.com/hostname: changken-k3s-grafana
           ingress:
             enabled: true
             ingressClassName: traefik
