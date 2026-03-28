@@ -7,7 +7,10 @@ metadata:
     tailscale.com/expose: "true"
     tailscale.com/hostname: changken-k3s-grafana
 spec:
+  selector:
+    app.kubernetes.io/instance: monitoring
+    app.kubernetes.io/name: grafana
   ports:
-    - name: http
+    - name: http-web
       port: 80
       targetPort: 80
