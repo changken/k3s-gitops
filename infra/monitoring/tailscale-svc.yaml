@@ -6,4 +6,8 @@ metadata:
   annotations:
     tailscale.com/expose: "true"
     tailscale.com/hostname: changken-k3s-grafana
-
+spec:
+  ports:
+    - name: http
+      port: 80
+      targetPort: 3000
