@@ -13,4 +13,8 @@ spec:
     - name: http
       port: 80
       targetPort: 8080
+    # argocd-server 預設把 HTTP 導向 https://<host>:443，因此 tailnet 也要提供 443
+    - name: https
+      port: 443
+      targetPort: 8080
   type: ClusterIP

@@ -17,8 +17,12 @@ spec:
     priorityClassName: system-cluster-critical
     providers:
       kubernetesIngress:
+        # Service 為 ClusterIP 沒有 LB 位址；寫入固定 hostname 讓 Ingress 有 status，
+        # ArgoCD 才會判定 Healthy（不影響流量，流量由 Cloudflare Tunnel 進來）
         publishedService:
-          enabled: true
+          enabled: false
+        ingressEndpoint:
+          hostname: traefik.kube-system.svc.cluster.local
     service:
       spec:
         type: ClusterIP
