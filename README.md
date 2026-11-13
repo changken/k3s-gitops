@@ -58,6 +58,8 @@ Tailscale ──> Grafana / ArgoCD   (只經 tailnet 存取，不經公網)
    `drawcardapp.changken.net` → `http://traefik.kube-system.svc.cluster.local:80`。
 6. **設定 ArgoCD admin 密碼**：讀取 `argocd-initial-admin-secret`、登入後改密碼，再刪除該 secret。
    Windows 若 `port-forward 8080` 被擋，改用其他埠（如 8443）。
+   Tailscale 連線請用 `https://changken-k3s-argocd`（自簽憑證，需接受警告；argocd CLI 加 `--grpc-web`）。
+   用 http 會被導向 443，所以 `infra/argocd/tailscale-svc.yaml` 同時暴露了 80 與 443。
 
 ## 注意事項
 - sealed-secrets chart repo 為 `https://bitnami.github.io/sealed-secrets`（舊的 `bitnami-labs.github.io` 已 404）。
