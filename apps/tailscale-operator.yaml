@@ -10,7 +10,7 @@ spec:
   source:
     repoURL: https://pkgs.tailscale.com/helmcharts
     chart: tailscale-operator
-    targetRevision: 1.94.2
+    targetRevision: 1.104.7
     helm:
       releaseName: tailscale-operator
   destination:
@@ -28,3 +28,4 @@ spec:
         maxDuration: 10m
     syncOptions:
       - CreateNamespace=true
+      - ServerSideApply=true
