@@ -20,8 +20,9 @@ spec:
         publishedService:
           enabled: true
     service:
-      type: ClusterIP
-      ipFamilyPolicy: PreferDualStack
+      spec:
+        type: ClusterIP
+        ipFamilyPolicy: PreferDualStack
     tolerations:
     - key: CriticalAddonsOnly
       operator: Exists
