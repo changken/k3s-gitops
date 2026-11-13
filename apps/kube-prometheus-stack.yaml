@@ -23,20 +23,6 @@ spec:
             annotations:
               tailscale.com/expose: "true"
               tailscale.com/hostname: changken-k3s-grafana
-          ingress:
-            enabled: true
-            ingressClassName: traefik
-            hosts:
-              - grafana.changken.net
-            annotations:
-              cert-manager.io/cluster-issuer: letsencrypt-prod
-            tls:
-              - secretName: grafana-tls
-                hosts:
-                  - grafana.changken.net
-          grafana.ini:
-            server:
-              domain: grafana.changken.net
   destination:
     server: https://kubernetes.default.svc
     namespace: monitoring
