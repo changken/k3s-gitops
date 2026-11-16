@@ -26,6 +26,7 @@ Tailscale ──> Grafana / ArgoCD   (只經 tailnet 存取，不經公網)
 - `root-app.yaml` - App of Apps 進入點（只掃 `apps/*.yaml`，不遞迴）
 - `apps/` - ArgoCD Application（helm chart 與 `drawcardapp`）
 - `apps/drawcardapp/` - drawcardapp 的 manifest（CI 會更新 `Deployment.yaml` 的映像 tag，路徑請勿移動）
+- `apps/meetingroomschedule/` - MeetingRoomSchedule 的 manifest（CI 用 sed 更新 `Deployment.yaml` 的 `image:` 那一行，路徑與格式請勿更動）；不經 Traefik，Cloudflare Tunnel 直接指向 Service
 - `infra/` - 純 manifest，由 `infra` app 遞迴同步：traefik 設定、cloudflared、SealedSecrets、ArgoCD 的 Tailscale Service
 - `scripts/seal-secrets.sh` - 以叢集公鑰加密 credential 產出 SealedSecret
 
@@ -50,8 +51,9 @@ Tailscale ──> Grafana / ArgoCD   (只經 tailnet 存取，不經公網)
    repo 為 public，ArgoCD 不需要 repo credential。
 4. **（key 遺失時）重新加密 credential**，commit 並 push
    ```bash
-   bash scripts/seal-secrets.sh            # grafana + tailscale + cloudflared
+   bash scripts/seal-secrets.sh            # grafana + tailscale + cloudflared + meetingroomschedule
    bash scripts/seal-secrets.sh cloudflared # 只加密單項
+   bash scripts/seal-secrets.sh ghcr        # 選用：GHCR package 為 private 時的 pull secret
    ```
    需要：Grafana admin 帳密、Tailscale OAuth client（Devices Core + Auth Keys write，tag `tag:k8s-operator`）、Cloudflare Tunnel token。
 5. **設定 Cloudflare Tunnel**：待 cloudflared 連線後，在 Zero Trust 後台新增 public hostname

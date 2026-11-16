@@ -1,0 +1,64 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: meetingroomschedule
+  namespace: meetingroomschedule
+spec:
+  # 啟動時會跑 migration 與 demo seed，先維持單一副本
+  replicas: 1
+  selector:
+    matchLabels:
+      app: meetingroomschedule
+  template:
+    metadata:
+      labels:
+        app: meetingroomschedule
+    spec:
+      # GHCR package 為 private 時才需要；Secret 不存在時 kubelet 會改用匿名拉取
+      imagePullSecrets:
+        - name: ghcr-pull
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1654 # aspnet image 內建的 app 使用者（APP_UID）
+        runAsGroup: 1654
+      containers:
+        - name: meetingroomschedule
+          # CI 會用 sed 換掉下一行的 tag，格式請勿更動（不要加行尾註解）
+          image: ghcr.io/changken/meetingroomschedule:placeholder
+          ports:
+            - containerPort: 8080
+          env:
+            # demo 環境：開啟 Scalar 與啟動時自動 migration，不是 Production
+            - name: ASPNETCORE_ENVIRONMENT
+              value: Testing
+            - name: DemoSeed__ApplyOnStartup
+              value: "true"
+          envFrom:
+            # ConnectionStrings__Database / Supabase__Url / Supabase__AnonKey / DemoSeed__EmailDomain
+            - secretRef:
+                name: meetingroomschedule-secrets
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop: ["ALL"]
+          resources:
+            requests:
+              memory: "128Mi"
+              cpu: "100m"
+            limits:
+              memory: "512Mi"
+              cpu: "500m"
+          # app 的 /health 尚未開放，先用 tcpSocket
+          startupProbe:
+            tcpSocket:
+              port: 8080
+            periodSeconds: 5
+            failureThreshold: 36 # migration + seed 最多等 3 分鐘
+          livenessProbe:
+            tcpSocket:
+              port: 8080
+            periodSeconds: 20
+          readinessProbe:
+            tcpSocket:
+              port: 8080
+            periodSeconds: 10
