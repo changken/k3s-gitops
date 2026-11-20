@@ -24,7 +24,7 @@ spec:
       containers:
         - name: meetingroomschedule
           # CI 會用 sed 換掉下一行的 tag，格式請勿更動（不要加行尾註解）
-          image: ghcr.io/changken/meetingroomschedule:d5956ee6a4ca3da89947793fcde13266a03e5730
+          image: ghcr.io/changken/meetingroomschedule:d73ff823899db8c95726d92e1b8a680bebab928a
           ports:
             - containerPort: 8080
           env:
